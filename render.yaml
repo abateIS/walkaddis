@@ -1,0 +1,42 @@
+services:
+  # Backend PHP Service
+  - type: web
+    name: walkaddis-backend
+    env: php
+    buildCommand: echo "No build needed for PHP"
+    startCommand: php -S 0.0.0.0:$PORT -t backend
+    envVars:
+      - key: DB_HOST
+        fromDatabase:
+          name: walkaddis-db
+          property: host
+      - key: DB_NAME
+        fromDatabase:
+          name: walkaddis-db
+          property: database
+      - key: DB_USER
+        fromDatabase:
+          name: walkaddis-db
+          property: user
+      - key: DB_PASS
+        fromDatabase:
+          name: walkaddis-db
+          property: password
+
+  # Frontend React App
+  - type: web
+    name: walkaddis-frontend
+    env: node
+    buildCommand: cd frontend && npm install && npm run build
+    startCommand: cd frontend && npm run preview
+    envVars:
+      - key: VITE_API_URL
+        value: https://walkaddis-backend.onrender.com/api
+
+databases:
+  - name: walkaddis-db
+    plan: free
+    databaseName: walkaddis
+    user: walkaddis_user
+
+
