@@ -1,6 +1,7 @@
 import axios from 'axios'
 
-const API_BASE_URL = 'https://walk-addis.infinityfreeapp.com'
+const API_BASE_URL = 'https://walk-addis.infinityfreeapp.com/'
+
 
 const api = axios.create({
   baseURL: API_BASE_URL,
